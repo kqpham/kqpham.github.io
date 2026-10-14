@@ -1,0 +1,249 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Prep Week Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#f3f5f1; --surface:#ffffff; --ink:#18221c; --muted:#5d6b62; --line:#dbe2dc;
+  --accent:#1f7a4d; --accent-soft:#e1f0e7; --b:#b4541f; --b-soft:#f7e6db;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#111713;--surface:#1a221d;--ink:#e6ede8;--muted:#9aaaa0;--line:#2c3830;
+  --accent:#5cc98f;--accent-soft:#1c3327;--b:#f0925c;--b-soft:#3a2518;}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#111713;--surface:#1a221d;--ink:#e6ede8;--muted:#9aaaa0;--line:#2c3830;
+  --accent:#5cc98f;--accent-soft:#1c3327;--b:#f0925c;--b-soft:#3a2518;}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body)}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:28px 60px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(28px,5vw,42px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:22px;font-weight:600}
+h3{font-size:17px;font-weight:600}
+.lede{color:var(--muted);max-width:62ch;margin:6px 0 0}
+.label{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{font:600 14px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs button:focus-visible,.chk:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:flex;gap:24px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.stats b{font:600 20px var(--display);display:block}
+.cal{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:13px}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.pill{display:block;padding:6px 8px;border-radius:6px;font-weight:600;line-height:1.3}
+.pA{background:var(--accent-soft);color:var(--accent)} .pB{background:var(--b-soft);color:var(--b)}
+.frz{display:block;font:500 10px var(--mono);color:var(--muted);margin-top:3px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.card.A{border-top:4px solid var(--accent)} .card.B{border-top:4px solid var(--b)}
+.macro{font:500 12px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.card ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.card a{color:var(--accent);font-weight:600;font-size:13px}
+.groc{columns:2 300px;column-gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.sec{break-inside:avoid;margin-bottom:16px}
+.sec .label{margin-bottom:6px;display:block}
+.item{display:flex;gap:10px;align-items:flex-start;padding:4px 0;font-size:14px;cursor:pointer}
+.item input{margin-top:3px;accent-color:var(--accent)}
+.item.done span{text-decoration:line-through;color:var(--muted)}
+.qty{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+.btn{font:600 13px var(--body);background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:8px;cursor:pointer}
+.note{font-size:13px;color:var(--muted);max-width:70ch}
+</style>
+
+<div class="wrap">
+  <nav style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" style="text-decoration:none;display:inline-block" href="https://claude.ai/artifact/VUzn8Sz7DGaXgYnaFSqWDH" target="_blank" rel="noopener">← Home</a><a class="btn" style="text-decoration:none;display:inline-block" href="https://claude.ai/artifact/EMoRw5ztSJgRhbKrZfjk5h" target="_blank" rel="noopener">Toronto Places ↗</a></nav>
+  <header>
+    <span class="label">From your “High Protein Meal Prep” collection</span>
+    <h1>Prep Week Planner</h1>
+    <p class="lede">A 14-week rotation built from every saved reel that includes a usable recipe (28 recipes). Each week, you cook two batch recipes on Sunday, which covers 14 meals (lunch and dinner, Mon–Sun) for one person.</p>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+  <div class="stats" id="stats"></div>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2>This week’s calendar</h2>
+    <div class="cal"><table id="cal"></table></div>
+    <p class="note">Prep on Sunday. Portions for Mon–Wed go in the fridge, and portions for Thu–Sun go in the freezer (marked “freeze”). Move each frozen portion to the fridge the night before you eat it.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2>The two recipes</h2>
+    <div class="grid" id="recipes"></div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <div class="row"><h2>Grocery list</h2><button class="btn" id="clear">Uncheck all</button></div>
+    <div class="groc" id="groc"></div>
+    <p class="note">Quantities come straight from the creators’ captions. Salt, pepper, oil spray and common dried spices are listed under Pantry, so you can skip what you already have.</p>
+  </section>
+</div>
+
+<script>
+const W=[
+{name:"Week 1",A:{t:"Lemon Parm Chicken Orzo",by:"_jackperez_",url:"https://www.instagram.com/_jackperez_/reel/DaEEO-GjEfs/",s:7,cal:551,p:50,c:54,f:15,
+ steps:["Season diced chicken (paprika, garlic powder, salt, pepper); cook 5–7 min.","Add shallot + garlic 1–2 min, then toast orzo 1–2 min.","Add broth, peas & carrots; cover and simmer 10–12 min.","Stir in cream cheese, parmesan, lemon zest + juice. Portion into 7."]},
+ B:{t:"Pizza Potato Bowls",by:"_jackperez_",url:"https://www.instagram.com/_jackperez_/reel/DaLr1bOjKg9/",s:7,cal:553,p:61,c:42,f:17,
+ steps:["Dice and season potatoes; air fry 400°F for 25–35 min.","Brown beef with onion and pepper; add garlic + pizza sauce, simmer 3–5 min.","Build 7 bowls: potatoes, beef, mozzarella, turkey pepperoni.","Broil briefly or let residual heat melt the cheese."]},
+ g:{"Meat & protein":[["Chicken breast","2 lb"],["96/4 lean ground beef","3 lb"],["Turkey pepperoni","12 oz"]],
+  "Produce":[["Russet potatoes","3 lb"],["Lemons","2"],["Shallot","1 large"],["Yellow onion","1 medium"],["Bell pepper","1"]],
+  "Dairy":[["Reduced-fat cream cheese","8 oz block"],["Parmesan, grated","2 cups"],["Part-skim mozzarella, shredded","2 cups"]],
+  "Frozen":[["Peas & carrots","3 cups"]],
+  "Dry goods & sauces":[["Orzo","2.5 cups dry"],["Chicken broth","6 cups"],["Pizza sauce or marinara","2 cups"]],
+  "Pantry":[["Minced garlic","~2 Tbsp"],["Paprika, garlic powder, Italian seasoning",""],["Salt, pepper, olive oil spray",""]]}},
+{name:"Week 2",A:{t:"Bang Bang Beef Fried Rice",by:"ryanrubiotrains",url:"https://www.instagram.com/ryanrubiotrains/reel/DaOkUasR-bW/",s:6,cal:551,p:45,c:57,f:14,
+ steps:["Brown beef with brown-sugar seasoning and half the soy sauce.","Add peas & carrots, then cooked rice, rest of soy and eggs; let it crisp.","Mix yogurt, light mayo, sriracha and sweet chili for bang bang sauce.","Portion into 6; keep sauce on the side."]},
+ B:{t:"Slow Cooker Chicken Pasta",by:"baek_lifts",url:"https://www.instagram.com/baek_lifts/reel/Da6H4DEP53o/",s:8,cal:470,p:54,c:34,f:5,
+ steps:["Add chicken, seasoning, pasta sauce, frozen mushrooms and broccoli to slow cooker.","Cook on HIGH 3 hours, then shred chicken in the pot.","Stir in fat-free mozzarella and dry pasta; cook 30–45 min more.","Portion into 8."]},
+ g:{"Meat & protein":[["96/4 lean ground beef","2 lb"],["Chicken breast or thigh, boneless","3 lb"],["Large eggs","4"]],
+  "Dairy":[["Plain nonfat Greek yogurt","100 g"],["Fat-free shredded mozzarella","2 cups"]],
+  "Frozen":[["Peas & carrots","300 g"],["Mushrooms","12 oz bag"],["Broccoli","12 oz bag"]],
+  "Dry goods & sauces":[["Jasmine rice","~350 g dry (950 g cooked)"],["Pasta, dry","16 oz"],["Pasta sauce","24 oz jar"],["Low-sodium soy sauce","60 g"],["Light mayo","100 g"],["Sweet chili sauce","30 ml"],["Sriracha","10 g"]],
+  "Pantry":[["Brown-sugar or BBQ seasoning",""],["Paprika, garlic powder",""],["Salt, pepper",""]]}},
+{name:"Week 3",A:{t:"Korean Beef Bibimbap",by:"joexfitness",url:"https://www.instagram.com/joexfitness/reel/Db83bLlo68c/",s:8,cal:591,p:46,c:51,f:18,
+ steps:["Slice mushrooms and carrots; steam with bean sprouts and spinach, covered.","Mix gochujang, soy, sesame oil, garlic, ginger, rice vinegar for the sauce.","Brown beef with salt, pepper, soy and sesame oil.","Fry 8 eggs; build 8 bowls with rice, veg, beef, sauce and an egg."]},
+ B:{t:"High-Protein Mapo Tofu",by:"ezefitt",url:"https://www.instagram.com/ezefitt/reel/DcKcYPshfro/",s:6,cal:435,p:43,c:15,f:21,
+ steps:["Brown beef; add garlic, ginger, scallions.","Stir in doubanjiang, oyster sauce, soy, Sichuan pepper and sweetener.","Pour in bone broth; gently fold in cubed tofu and simmer.","Thicken with cornstarch slurry. Serve over rice."]},
+ g:{"Meat & protein":[["95/5 lean ground beef","2 lb"],["90% lean ground beef","2 lb"],["Firm tofu","16 oz"],["Large eggs","8"]],
+  "Produce":[["Carrots","~1 cup sliced"],["Shiitake mushrooms","~1 cup"],["Bean sprouts","~1 cup"],["Spinach","1 large bag"],["Scallions","1 bunch"],["Fresh ginger","small knob"]],
+  "Dry goods & sauces":[["Rice (bibimbap + mapo)","~3 cups dry"],["Gochujang","3/4 cup"],["Doubanjiang (chili bean paste)","3 Tbsp"],["Oyster sauce","4 Tbsp"],["Soy sauce","~8 Tbsp"],["Sesame oil","3+ Tbsp"],["Rice vinegar","6 Tbsp"],["Beef bone broth","1.5 cups"],["Cornstarch","2 Tbsp"],["Monk fruit sweetener","1 Tbsp"],["Sichuan pepper flakes",""]],
+  "Pantry":[["Minced garlic","~2 Tbsp"],["Salt, pepper, spray oil",""]]}},
+{name:"Week 4",A:{t:"Creamy Cajun Chicken Pasta",by:"adamwolfefitness",url:"https://www.instagram.com/adamwolfefitness/reel/Db_td7gKkFc/",s:6,cal:483,p:53,c:39,f:13,
+ steps:["Mix the Cajun seasoning; coat diced chicken with ⅔ of it and brown 3–4 min.","Add onion, peppers and garlic.","Add dry rigatoni, broth and the rest of the seasoning; cover and simmer 10–13 min.","Stir in cream cheese and parmesan. Portion into 6."]},
+ B:{t:"Philly Cheesesteak Potato Bowls",by:"cookwithpat_",url:"https://www.instagram.com/cookwithpat_/reel/DbCCG1kJUMJ/",s:8,cal:530,p:52,c:35,f:22,
+ steps:["Season diced potatoes; air fry or bake 400°F for 22–28 min.","Cook beef, onion and peppers; add Worcestershire, seasonings, then cream cheese.","Layer potatoes, beef, mozzarella slices; broil 1–3 min.","Mix yogurt sauce; portion into 8 and drizzle."]},
+ g:{"Meat & protein":[["Chicken breast, boneless skinless","2.5 lb"],["Extra-lean ground beef","2 lb"]],
+  "Produce":[["Potatoes","3 lb"],["Yellow onions","2 medium"],["Bell peppers","3 + ½ orange"]],
+  "Dairy":[["⅓-fat cream cheese","8 oz block"],["Light cream cheese","6 oz"],["Parmesan, grated","50 g"],["Mozzarella slices","8"],["0% Greek yogurt","1 cup"]],
+  "Dry goods & sauces":[["Rigatoni","10 oz"],["Low-sodium chicken broth","3 cups"],["Worcestershire sauce","2 Tbsp"],["Light mayo","2 tsp"]],
+  "Pantry":[["Minced garlic","2 Tbsp"],["Smoked paprika, garlic & onion powder, oregano, thyme, cayenne",""],["Salt, pepper, olive oil, cooking spray",""]]}},
+{name:"Week 5",A:{t:"Supreme Pizza Bowls",by:"adamwolfefitness",url:"https://www.instagram.com/adamwolfefitness/reel/DdJrs-ZK93Z/",s:6,cal:589,p:62,c:47,f:18,
+ note:"The caption lists ingredients only, so these steps are a simple method to follow.",
+ steps:["Brown beef and turkey with the Italian seasoning blend.","Sauté peppers, onion and mushrooms; cook rotini.","Combine meat, veg, pasta and marinara in a baking dish.","Top with mozzarella, parm, pepperoni and banana peppers; broil until melted. Portion into 6."]},
+ B:{t:"Cheeseburger Potato Bowls",by:"ryanrubiotrains",url:"https://www.instagram.com/ryanrubiotrains/reel/DbYJ_ZARZx6/",s:8,cal:547,p:54,c:40,f:18,
+ steps:["Season bite-size potatoes; bake at 425°F until crispy.","Brown beef with burger rub; cook and chop beef bacon.","Mix yogurt, mustard, light mayo, ketchup, relish, garlic powder for sauce.","Top potatoes with beef, bacon and cheddar slices; broil. Portion into 8 with sauce."]},
+ g:{"Meat & protein":[["93/7 ground beef","1 lb"],["99/1 ground turkey","1 lb"],["96/4 ground beef","3 lb"],["Beef bacon","10 slices"],["Turkey pepperoni","5 servings (~150 g)"]],
+  "Produce":[["Petite gold potatoes","48 oz"],["Onions","1 small + 16 oz"],["Bell peppers","2"],["Baby bella mushrooms","4"]],
+  "Dairy":[["Reduced-fat mozzarella, shredded","198 g bag"],["Parmesan","15 g"],["Ultra-thin cheddar slices","12"],["0% Greek yogurt","200 g"]],
+  "Dry goods & sauces":[["Rotini","10 oz"],["Marinara","1 jar"],["Banana peppers","1 jar"],["Mustard","80 g"],["Light mayo","80 g"],["No-sugar ketchup","50 g"],["Relish","50 g"]],
+  "Pantry":[["Italian seasoning, garlic & onion powder, smoked paprika, chili flakes",""],["Everything seasoning, burger rub",""],["Salt, pepper",""]]}},
+{name:"Week 6",A:{t:"Thai Garlic Beef Bowls",by:"adamwolfefitness",url:"https://www.instagram.com/adamwolfefitness/reel/Dc6RCIfqmrf/",s:6,cal:432,p:36,c:35,f:17,
+ steps:["Cook 1 cup jasmine rice; mix the spicy garlic sauce.","Brown beef with pepper, garlic powder, onion powder, smoked paprika; set aside.","Char bell pepper, onion and jalapeño 5–7 min.","Return beef, add sauce 2–3 min, wilt basil. Portion into 6; top with peanuts and green onion."]},
+ B:{t:"Chicken Tteokbokki",by:"joexfitness",url:"https://www.instagram.com/joexfitness/reel/DbZhDbqg7g-/",s:8,cal:594,p:41,c:97,f:14,
+ steps:["Mix gochugaru, gochujang, oyster, soy, pepper, garlic, sweetener into a paste.","Boil 10 cups water, stir in paste, add rice cakes and fish cakes.","Add cabbage and green onion; cook until thick and chewy.","Grill seasoned chicken, slice, and portion over tteokbokki with sesame seeds."]},
+ g:{"Meat & protein":[["91/9 lean ground beef","2 lb"],["Chicken breast","30 oz"],["Fish cake","20 oz"]],
+  "Produce":[["Red bell pepper","1"],["Yellow onion","1 large"],["Jalapeño","1"],["Thai basil","1 bunch"],["Green onions","~26 (2 bunches+)"],["Napa cabbage","1 head (32 leaves)"],["Garlic","5 cloves + ½ cup minced"]],
+  "Dry goods & sauces":[["Jasmine rice","1 cup dry"],["Korean rice cakes","24 oz"],["Gochugaru","1 cup"],["Gochujang","1 cup"],["Oyster sauce","½ cup + 2 Tbsp"],["Soy sauce (incl. low-sodium)","¾ cup + 5 Tbsp"],["Sweet chili sauce","2 Tbsp"],["Fish sauce","2 tsp"],["Rice vinegar","1 Tbsp"],["Sriracha","2 tsp"],["Honey","1 Tbsp"],["Monk fruit brown sweetener","¾ cup"],["Unsalted roasted peanuts","~45 g"],["Sesame seeds","2.5 Tbsp"],["Furikake (optional)",""]],
+  "Pantry":[["Black pepper (lots), garlic & onion powder, smoked paprika",""],["Salt, spray oil",""]]}},
+{name:"Week 7",A:{t:"Sloppy Joe Sweet Potato Bowls",by:"_jackperez_",url:"https://www.instagram.com/_jackperez_/reel/DZtAhHjCMyL/",s:5,cal:640,p:54,c:79,f:12,
+ steps:["Air fry diced sweet potatoes 400°F for 25–35 min.","Half-brown beef, add onion and pepper until soft.","Stir in garlic, tomato paste, sauces, seasonings, sweetener, broth; simmer 10–15 min.","Build 5 bowls with sweet potato, beef and cheddar."]},
+ B:{t:"High-Protein Mac n’ Cheese",by:"stealth_health_life",url:"https://www.instagram.com/stealth_health_life/reel/Dc9VKbbhl--/",s:9,cal:580,p:40,c:72,f:15,
+ steps:["Simmer shells in water, evaporated milk, salt, garlic powder, pepper; covered on low 15 min.","Blend cottage cheese, milk, cheddar powder (and sodium citrate) until smooth.","Uncover and simmer ~5 min until thick; cool slightly.","Stir in sauce, then cheddar, fontina, parm, then mozzarella over very low heat. Portion into 9."]},
+ g:{"Meat & protein":[["96/4 lean ground beef","2 lb"]],
+  "Produce":[["Sweet potatoes","1500 g (3–4 large)"],["Onion","1 large"],["Bell pepper","1"]],
+  "Dairy":[["Cottage cheese","800 g"],["Fat-free milk","80 g"],["Sharp cheddar, block","227 g"],["Reduced-fat cheddar, shredded","224 g"],["Parmigiano Reggiano","40 g"],["Fontina","60 g"],["Fat-free mozzarella","200 g"]],
+  "Dry goods & sauces":[["Shell pasta (shellbows)","800 g"],["Fat-free evaporated milk","680 g (2 cans)"],["Cheddar powder","1 packet (30 g)"],["Sodium citrate (optional)","10 g"],["Ketchup","80 g"],["BBQ sauce","40 g"],["Mustard","20 g"],["Tomato paste","50 g"],["Worcestershire","15 g"],["Low-sodium beef broth","120 g"],["Brown sugar substitute","30 g"]],
+  "Pantry":[["Minced garlic","4 Tbsp"],["Garlic powder, onion powder, paprika",""],["Coarse salt, pepper, olive oil spray",""]]}},
+{name:"Week 8",A:{t:"Garlic Braised Eggplant & Beef",by:"ezefitt",url:"https://www.instagram.com/ezefitt/reel/DbrJUi7QTsh/",s:5,cal:270,p:33,c:15,f:9,
+ note:"Macros don’t include rice. Add about 1 cup cooked rice per serving.",
+ steps:["Brown beef and set aside; cook eggplant batons until soft.","Add garlic, scallions, chilies, then doubanjiang for 30 sec.","Add soy, rice vinegar, oyster sauce and sweetener, plus beef; simmer 5–7 min.","Thicken with slurry. Portion into 5 over rice."]},
+ B:{t:"Creamy Italian Sausage Rigatoni",by:"stealth_health_life",url:"https://www.instagram.com/stealth_health_life/reel/DbjBsEfx3j5/",s:11,cal:625,p:55,c:61,f:17,
+ steps:["Mix sausage seasoning into 96% beef; rest 15 min.","Blend cottage cheese, evaporated milk, parm, fontina, pecorino.","Brown beef, then onions, garlic, chili, fennel; return beef, stir in sauce on low.","Toss in cooked rigatoni and herbs. Portion into 11."]},
+ g:{"Meat & protein":[["96% lean ground beef","2 lb + 48 oz (~5 lb)"]],
+  "Produce":[["Chinese eggplants","2 large"],["Yellow onions","3"],["Garlic","~32 cloves (3 heads)"],["Scallions","2"],["Red chilies","2–3"],["Parsley & chives","1 small bunch each"]],
+  "Dairy":[["Cottage cheese","900 g"],["Parmigiano Reggiano","120 g"],["Fontina","100 g"],["Pecorino Romano","60 g"]],
+  "Dry goods & sauces":[["Rigatoni","784 g (28 oz)"],["Rice for eggplant","~2 cups dry"],["Fat-free evaporated milk","1 can"],["Doubanjiang","2 Tbsp"],["Low-sodium soy sauce","3 Tbsp"],["Rice vinegar","2 Tbsp"],["Oyster sauce","1 Tbsp"],["Monk fruit sweetener","1 Tbsp"],["Cornstarch","1 Tbsp"]],
+  "Pantry":[["Kosher salt, pepper, paprika, garlic & onion powder, Italian seasoning, sugar",""],["Fennel seed, chili flakes, baking soda",""],["Olive oil",""]]}},
+{name:"Week 9",A:{t:"Cheesy Beef Protein Pasta",by:"hosseinfitness_",url:"https://www.instagram.com/hosseinfitness_/reel/DYNlcD3Sfmt/",s:5,cal:738,p:88,c:49,f:21,
+ steps:["Cook onion and garlic, then brown beef.","Add seasonings and tomato sauce.","Add broth and protein pasta; cover on low ~10 min.","Stir in cheese. Portion into 5."]},
+ B:{t:"Japanese Curry Orzo",by:"stealth_health_life",url:"https://www.instagram.com/stealth_health_life/reel/DcHfgIEhXx0/",s:13,cal:595,p:40,c:79,f:14,
+ steps:["Season chicken; bake covered 375°F for 30 min, then dice.","Brown carrots and onions; add tomato paste and ginger.","Add orzo, potatoes, honey, soy, broth, water; simmer 20–30 min.","Melt in curry roux, loosen with water, add chicken, sesame oil, green onion. Portion into 13."]},
+ g:{"Meat & protein":[["Extra-lean ground beef","2 lb"],["Chicken breast","1350 g (48 oz)"]],
+  "Produce":[["Yellow onion","1 medium"],["Sweet onions","3 medium"],["Carrots","500 g (~4 large)"],["Green onions","1 bunch"]],
+  "Dairy":[["Reduced-fat mozza-cheddar, shredded","320 g"]],
+  "Frozen":[["Diced potatoes","700 g"]],
+  "Dry goods & sauces":[["Protein elbow pasta","340 g box"],["Orzo","896 g (32 oz)"],["Bone broth (beef or chicken)","3.5 cups + 48 oz"],["Japanese curry roux (Golden Curry)","270 g (15 cubes)"],["Tomato sauce","45 g"],["Tomato paste","4 Tbsp"],["Ginger paste","3 Tbsp"],["Honey","2 Tbsp"],["Soy sauce","2 Tbsp"],["Toasted sesame oil","1 Tbsp"],["Sesame seeds",""]],
+  "Pantry":[["Minced garlic","2 tsp"],["Onion powder, Italian herbs, garlic powder, shichimi (optional)",""],["Salt, pepper, oil, cooking spray",""]]}},
+{name:"Week 10",A:{t:"Harissa Chicken Rice Bake (×2)",by:"jessthomofit",url:"https://www.instagram.com/jessthomofit/reel/DaA4aGAstiD/",s:8,cal:537,p:49,c:null,f:null,
+ note:"Recipe doubled from 4 servings; use two oven-safe pans. The caption doesn’t give carbs or fat.",
+ steps:["Coat chicken in 45 g harissa (per batch); sear until golden, remove.","Soften onion and pepper, add garlic and chili flakes.","Stir in rice, remaining harissa, bone broth and tomatoes; return chicken.","Cover and bake 190°C for 25 min; add cavolo nero, 5–10 min more."]},
+ B:{t:"Lemon Pepper Chicken & Sweet Potato (×2)",by:"drmattcooks",url:"https://www.instagram.com/drmattcooks/reel/DY7_kRGzE0e/",s:8,cal:550,p:49,c:35,f:12,
+ note:"Recipe doubled from 4 servings.",
+ steps:["Roast sweet potato halves and broccoli at 400°F until caramelized.","Season tenderloins with lemon pepper and garlic powder; air fry 400°F ~13 min.","Mix yogurt, lemon, garlic, honey, salt and pepper for sauce.","Build 8 bowls; drizzle sauce on top."]},
+ g:{"Meat & protein":[["Chicken breasts","6"],["Chicken tenderloins","4 lb"]],
+  "Produce":[["Red onions","2"],["Red peppers","2"],["Garlic","6 small cloves"],["Cavolo nero (lacinato kale)","250 g"],["Sweet potatoes","4 large"],["Broccoli","4 large heads"],["Lemon","1"]],
+  "Dairy":[["Greek yogurt","1 cup"]],
+  "Dry goods & sauces":[["Basmati rice","500 g dry"],["Harissa paste","140 g"],["Chopped tomatoes","2 × 400 g cans"],["Chicken bone broth","500 ml"],["Honey","2 tsp"]],
+  "Pantry":[["Lemon pepper seasoning","2 Tbsp"],["Minced garlic, garlic powder, crushed chili flakes",""],["Salt, pepper, oil spray",""]]}},
+{name:"Week 11",A:{t:"Gochujang Rosé Chicken Pasta (½ batch)",by:"brianshincooks",url:"https://www.instagram.com/brianshincooks/reel/DbAaHdYT7ZC/",s:7,cal:530,p:60,c:50,f:10,
+ note:"Halved from the 15-serving original; amounts below are already halved.",
+ steps:["Toss chicken with gochujang, soy, garlic powder, pepper; bake 180°C for 18 min, rest 10.","Cook protein pasta 1 min under al dente; save pasta water.","Sauté onions and mushrooms, add gochujang, passata, cream, stock, soy, stevia; reduce.","Divide pasta, chicken and sauce into 7; add spinach."]},
+ B:{t:"Big Mac Bowl (×2)",by:"annmarielawrence_",url:"https://www.instagram.com/annmarielawrence_/reel/DaDQxvHpQqR/",s:8,cal:485,p:45,c:18,f:24,
+ note:"Doubled from 4 servings. Keep lettuce, tomato and sauce in separate containers so they stay crisp.",
+ steps:["Mix light mayo, ketchup, mustard, relish, onion and vinegar for the sauce; chill.","Brown beef with garlic, salt, pepper, onion and garlic powder; add Worcestershire.","Pack beef and cheddar per container; lettuce, tomato, pickles, red onion separately.","Add sauce when you eat. Add roasted potatoes if you want more carbs."]},
+ g:{"Meat & protein":[["Chicken breast","1.5 kg"],["93% lean ground beef","3 lb"]],
+  "Produce":[["Mushrooms","250 g"],["Onions","1.5"],["Spinach","1 bag"],["Romaine or iceberg lettuce","2 heads"],["Tomatoes","3–4"],["Red onion","1"],["White onion","small piece"]],
+  "Dairy":[["Light cooking cream","150 ml"],["Reduced-fat shredded cheddar","~1.5 cups"]],
+  "Dry goods & sauces":[["Protein pasta, dry","400 g"],["Passata","350 g"],["Gochujang","75 g"],["Soy sauce","25 g"],["Chicken stock","150 ml"],["Stevia","15 g"],["Light mayo","1 cup"],["Sugar-free ketchup","4 Tbsp"],["Yellow mustard","2 Tbsp"],["Pickle relish","4 Tbsp"],["Pickle slices","1 jar"],["White vinegar","2 tsp"],["Worcestershire","2 Tbsp"]],
+  "Pantry":[["Minced garlic","2 Tbsp"],["Garlic powder (~15 g), onion powder",""],["Salt, pepper, spray oil",""]]}},
+{name:"Week 12",A:{t:"Blackened Chicken Alfredo (½ batch)",by:"stealth_health_life",url:"https://www.instagram.com/stealth_health_life/reel/DabCqmgB5XO/",s:7,cal:500,p:41,c:50,f:14,
+ note:"Halved from the 15-serving original; amounts below are already halved.",
+ steps:["Season chicken with blackening spice; sear in oil and butter, then slice.","Cook onion, peppers, garlic in butter; stir in Dijon.","Cook rigatoni to ~80% of box time; save pasta water.","Blend cottage cheese, parm, cream cheese, milk; toss everything with pasta water. Top with mozzarella and chives. Portion into 7."]},
+ B:{t:"Creamy Cheesy Chicken & Potatoes (×2)",by:"hosseinfitness_",url:"https://www.instagram.com/hosseinfitness_/reel/DZ6dwI0h_R4/",s:8,cal:609,p:65,c:47,f:17,
+ note:"Doubled from 4 servings.",
+ steps:["Dice and season potatoes; air fry 390°F for 15 min.","Dice and season chicken; pan-fry ~10 min until slightly crispy.","In the pan melt butter; add red onion, garlic, cream cheese, bone broth until thick.","Toss chicken in, top with cheese until melted. Portion into 8 with potatoes."]},
+ g:{"Meat & protein":[["Chicken breast","672 g + 1.8 kg (~5.5 lb total)"]],
+  "Produce":[["Yellow potatoes","2 kg"],["Sweet onion","1"],["Red onion","1"],["Bell peppers","2–3"],["Garlic","~5 cloves"],["Chives","1 bunch"]],
+  "Dairy":[["2% cottage cheese","400 g"],["Parmigiano Reggiano","90 g + 20 g"],["⅓-fat / light cream cheese","60 g + 200 g"],["Fat-free milk","120 ml"],["Mozzarella","30 g"],["Low-fat shredded cheese","160 g"],["Butter / light butter","~25 g + 30 g"]],
+  "Dry goods & sauces":[["Rigatoni","448 g"],["Dijon mustard","15 g"],["Bone broth","300 ml"]],
+  "Pantry":[["Paprika (lots), onion & garlic powder, oregano, thyme, cayenne",""],["Italian herbs, minced garlic",""],["Salt, pepper, olive oil, cooking spray",""]]}},
+{name:"Week 13",A:{t:"One-Pot Harissa Chicken & Orzo (×2)",by:"danny.vids",url:"https://www.instagram.com/danny.vids/reel/DbgpSkdS9b4/",s:8,cal:600,p:46,c:null,f:null,
+ note:"Doubled from 4 servings. The caption gives no macros; calories and protein here are my estimate.",
+ steps:["Season thighs; sear 4–5 min per side, remove.","Soften onion; add garlic, harissa and tomato paste for 1 min.","Stir in orzo and broth, nestle chicken back in; cover and simmer ~12 min.","Portion into 8; top with Greek yogurt and parsley when serving."]},
+ B:{t:"Dakgalbi – Spicy Korean Chicken (×3)",by:"richkipark",url:"https://www.instagram.com/richkipark/reel/DXLaxW7jdBW/",s:6,cal:598,p:48,c:null,f:null,
+ note:"Tripled from 2 servings. The caption lists ingredients only, so these steps are a standard method.",
+ steps:["Mix gochujang, gochugaru, soy, mirin and garlic; marinate sliced thighs.","Par-cook potato chunks (microwave or boil 5 min).","Stir-fry chicken, potatoes, cabbage and onion in a large pan until cooked.","Add green onion, top with mozzarella and cover to melt. Portion into 6."]},
+ g:{"Meat & protein":[["Boneless skinless chicken thighs","3 lb + 1.2 kg (~5.5 lb total)"]],
+  "Produce":[["Onions (yellow + sweet)","2 + 1"],["Garlic","6 cloves + 3 Tbsp minced"],["Potatoes","1.2 kg"],["Cabbage","½ head"],["Green onions","1 bunch"],["Parsley","1 bunch"]],
+  "Dairy":[["Plain Greek yogurt","~1 cup"],["Mozzarella, shredded","~1 cup"]],
+  "Dry goods & sauces":[["Orzo","3 cups"],["Chicken broth","5 cups"],["Harissa paste","6 Tbsp"],["Tomato paste","2 Tbsp"],["Gochujang","3 Tbsp"],["Gochugaru","9 tsp"],["Soy sauce","6 Tbsp"],["Mirin","3 Tbsp"]],
+  "Pantry":[["Kosher salt, pepper, olive oil",""]]}},
+{name:"Week 14",A:{t:"Char Siu Pork with Rice & Bok Choy",by:"ivyskitchn",url:"https://www.instagram.com/ivyskitchn/reel/DdKxfoeRACv/",s:6,cal:550,p:40,c:null,f:null,
+ note:"The full recipe is on the creator’s Substack. The caption lists ingredients only, so the amounts, steps and macros here are my estimate.",
+ steps:["Mix bean curd, hoisin, honey, oyster, soy, Shaoxing, brown sugar, garlic, five spice, white pepper, sesame oil; marinate pork strips overnight.","Roast on a rack at 400°F ~30–35 min, basting and flipping halfway.","Brush with honey and broil 2–3 min to char; rest and slice.","Portion into 6 with jasmine rice and steamed bok choy."]},
+ B:{t:"Honey Garlic Ginger Beef Bowls (×2)",by:"drmattcooks",url:"https://www.instagram.com/drmattcooks/reel/DaypKKHzJiD/",s:8,cal:610,p:48,c:37,f:26,
+ note:"Doubled from 4 servings. The recipe is behind a comment-for-link DM, so the amounts are my estimate from the reel’s serving sizes.",
+ steps:["Cook rice in bone broth with a spoon of miso and grated ginger; stir in edamame.","Brown beef; add green beans and cook until tender-crisp.","Simmer soy, honey, garlic and ginger into a glaze; toss with beef.","Portion 175 g rice + 250 g beef mix into 8."]},
+ g:{"Meat & protein":[["Pork shoulder (boneless)","2 lb"],["Lean ground beef","3 lb"]],
+  "Produce":[["Baby bok choy","1.5 lb"],["Green beans","1.5 lb"],["Garlic","2 heads"],["Fresh ginger","large knob"]],
+  "Frozen":[["Shelled edamame","2 cups"]],
+  "Dry goods & sauces":[["Jasmine rice","~3.5 cups dry"],["Red fermented bean curd","2 cubes"],["Hoisin sauce","¼ cup"],["Honey","~⅓ cup"],["Oyster sauce","2 Tbsp"],["Light soy sauce","~½ cup"],["Shaoxing wine","2 Tbsp"],["Dark brown sugar","2 Tbsp"],["White miso","2 Tbsp"],["Bone broth","~4 cups"],["Toasted sesame oil","1 tsp"]],
+  "Pantry":[["Chinese five spice, white pepper",""],["Salt, oil",""]]}}
+];
+const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+let cur=0; const store={get(k){try{return JSON.parse(localStorage.getItem(k)||"{}")}catch(e){return{}}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function render(){
+  const w=W[cur];
+  document.getElementById('tabs').innerHTML=W.map((x,i)=>`<button role="tab" aria-selected="${i===cur}" data-i="${i}">${x.name}</button>`).join('');
+  const avgP=Math.round((w.A.p*w.A.s+w.B.p*w.B.s)/(w.A.s+w.B.s)), avgC=Math.round((w.A.cal*w.A.s+w.B.cal*w.B.s)/(w.A.s+w.B.s));
+  document.getElementById('stats').innerHTML=`<div><span class="label">Meals</span><b>${w.A.s+w.B.s}</b></div><div><span class="label">Avg protein / meal</span><b>${avgP} g</b></div><div><span class="label">Avg calories / meal</span><b>${avgC}</b></div><div><span class="label">Protein / day</span><b>~${avgP*2} g</b></div>${w.A.s+w.B.s>14?`<div><span class="label">Extra portions</span><b>${w.A.s+w.B.s-14} to freeze</b></div>`:''}`;
+  let a=w.A.s; const lunch=[],dinner=[];
+  for(let i=0;i<7;i++){if(a>0){lunch.push('A');a--}else lunch.push('B')}
+  for(let i=0;i<7;i++){dinner.push(a>0?(a--,'A'):'B')}
+  const cell=(k,i)=>`<td><span class="pill p${k}">${w[k].t}</span>${i>=3?'<span class="frz">freeze</span>':''}</td>`;
+  document.getElementById('cal').innerHTML=`<tr><th></th>${days.map(d=>`<th>${d}</th>`).join('')}</tr><tr><th>Lunch</th>${lunch.map(cell).join('')}</tr><tr><th>Dinner</th>${dinner.map(cell).join('')}</tr>`;
+  document.getElementById('recipes').innerHTML=['A','B'].map(k=>{const r=w[k];return `<article class="card ${k}"><span class="label">Batch ${k==='A'?'1':'2'} · makes ${r.s}</span><h3>${r.t}</h3><div class="macro">${r.cal} cal · ${r.p}P${r.c!=null?` · ${r.c}C · ${r.f}F`:''} per serving</div>${r.note?`<p class="note" style="margin:0">${r.note}</p>`:''}<ol>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol><a href="${r.url}" target="_blank" rel="noopener">Watch the reel by @${r.by} ↗</a></article>`}).join('');
+  const done=store.get('groc'+cur);
+  document.getElementById('groc').innerHTML=Object.entries(w.g).map(([sec,items])=>`<div class="sec"><span class="label">${sec}</span>${items.map(([n,q],j)=>{const id=`g${cur}-${sec}-${j}`;return `<label class="item ${done[id]?'done':''}"><input type="checkbox" class="chk" id="${id}" ${done[id]?'checked':''}><span>${n} <span class="qty">${q}</span></span></label>`}).join('')}</div>`).join('');
+}
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b){cur=+b.dataset.i;render()}});
+document.getElementById('groc').addEventListener('change',e=>{const d=store.get('groc'+cur);d[e.target.id]=e.target.checked;store.set('groc'+cur,d);e.target.closest('.item').classList.toggle('done',e.target.checked)});
+document.getElementById('clear').addEventListener('click',()=>{store.set('groc'+cur,{});render()});
+render();
+</script>
+
+</body></html>

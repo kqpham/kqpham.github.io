@@ -1,0 +1,159 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Kevin's Toronto Places</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Public+Sans:wght@400;600&display=swap">
+<style>
+:root{--bg:#f3f5f4;--card:#fff;--ink:#16211d;--mut:#5b6b65;--line:#d8e0dc;--acc:#c8102e;--chip:#e6ecea}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101614;--card:#18201d;--ink:#e8efec;--mut:#98a8a1;--line:#2a3531;--acc:#ff5a6e;--chip:#23302b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101614;--card:#18201d;--ink:#e8efec;--mut:#98a8a1;--line:#2a3531;--acc:#ff5a6e;--chip:#23302b;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 "Public Sans",system-ui,sans-serif;padding:24px 16px 48px}
+.wrap{max-width:960px;margin:0 auto}
+h1{font:800 clamp(28px,6vw,44px)/1.05 "Bricolage Grotesque",sans-serif;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--mut);margin:0 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.chips button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 12px;font:600 13px "Public Sans",sans-serif;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+section{margin-bottom:26px}
+h2{font:600 20px "Bricolage Grotesque",sans-serif;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+h2 span{font:400 13px "Public Sans";color:var(--mut)}
+.area-note{color:var(--mut);font-size:13px;margin:0 0 10px}
+ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+li{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+li b{font-weight:600}
+li .d{color:var(--mut);font-size:13px}
+.tag{align-self:flex-start;font-size:11px;letter-spacing:.04em;text-transform:uppercase;background:var(--chip);border-radius:4px;padding:1px 6px;color:var(--mut)}
+li a{color:var(--acc);font-weight:600;font-size:13px;text-decoration:none;margin-top:2px}li a:hover{text-decoration:underline}
+button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.xlink{margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap}.xlink a{display:inline-block;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 12px;font:600 13px "Public Sans",sans-serif;text-decoration:none}.xlink a:hover{border-color:var(--acc)}
+</style>
+<div class="wrap">
+<nav class="xlink"><a href="https://claude.ai/artifact/VUzn8Sz7DGaXgYnaFSqWDH" target="_blank" rel="noopener">← Home</a> <a href="https://claude.ai/artifact/KrycuU5kTjXfv9GmCE9Tqb" target="_blank" rel="noopener">Prep Week Planner ↗</a></nav>
+<h1>Toronto Places</h1>
+<p class="sub">Your 123 saved posts, sorted by area. Tap a category to filter.</p>
+<div class="chips" id="chips"></div>
+<div id="out"></div>
+</div>
+<script>
+const C={viet:"Vietnamese",kor:"Korean",jp:"Japanese",cn:"Chinese / HK / Taiwanese",hot:"Hot pot & AYCE",bar:"Bars & nightlife",cafe:"Cafés, brunch & dessert",other:"Other cuisines",act:"Activities & shopping",out:"Outdoors & day trips"};
+const A=[
+["Downtown & Chinatown","Queen W, Spadina, Yonge–Wellesley, Church St, Gerrard",[
+["Pho Ngoc Yen","viet","Called the best pho downtown",2],
+["Kajiken (2nd location)","jp","214 Queen St W – aburasoba",5],
+["Raku","jp","456 Queen St W – udon, expect a line",100],
+["Taisho Japanese Grill","hot","29 Baldwin St – AYCE Japanese BBQ",103],
+["Mini Bar","kor","116 Spadina Ave – homemade kimbap Fridays",118],
+["Somtum Jinda","other","76 Gerrard St E – Thai, reserve ahead",122],
+["Mapo Sanghoe KBBQ","kor","Church & Wellesley – Seoul-street decor",33],
+["Bao House (downtown)","cn","Yonge & Wellesley – everything under $13",69],
+["Xihe Peking duck","cn","Downtown – $19.99 quarter duck combo",71],
+["New Hong Fatt BBQ, Yummy Yummy Dumplings, Yueh Tung, 7 Noodles","cn","Mark Wiens Toronto crawl stops",1],
+["Gebang Sikdang","kor","Michelin Bib Gourmand raw marinated crab from Seoul",13],
+["Alice Bevy","other","$20 steak frites down a hidden path",12],
+["Ricky & Olivia","other","Michelin-recognized, not Michelin-priced",21],
+["Saku","bar","Japanese-Mexican cocktails, sushi & tacos",113],
+["Industry Snack Bar","other","$35 AYCE tacos",117],
+["Maji Curry","jp","515 Bloor St W – award-winning Japanese curry",111],
+["Bathroom-stall speakeasy","bar","Burlesque-inspired hidden bar",29],
+["Restaurant with a hidden cave","other","Ask to dine downstairs",31],
+["Bar Otoronto rooftop","bar","Covered rooftop patio",30],
+["Lost in Toronto Bar","bar","After-hours version of Lost in Tokyo café",18],
+["Arcadia Earth","act","Immersive museum, date-night events",15],
+["Crazy Cube (Octo Zone)","act","247 Yonge St – game rooms",35],
+["Japan crime-scene escape room","act","Story-driven, no jump scares",28],
+["Flying Tiger Copenhagen","act","Design/novelty store",26],
+["Sushi-making class","act","90-min intro class, 28 pieces",85],
+["Twilight board game café – NOWWA Coffee","cafe","Yonge & Bloor",8]]],
+["West End","Ossington, College, Dundas W, Queen W, Weston, Caledonia",[
+["Hem Social","viet","Dundas W – Vietnamese share plates",119],
+["Gyopo Brewery","kor","Makgeolli brewery with retro Seoul-alley vibes",3],
+["Alley Pocha","kor","690 Euclid Ave – soju & anju",52],
+["French-Asian speakeasy on Ossington","bar","Try the beef tartare éclair",25],
+["Gateau Ghost","cafe","974 College St – brunch",20],
+["Belle Isle","bar","From the Lake Inez team",19],
+["Mercado","other","682 Caledonia Rd – Portuguese grill platters",39],
+["Los Panchos","other","Near Weston GO – birria tacos",17],
+["Daily Grind","cafe","Vietnamese-flavoured brunch",48],
+["Tori Shica","jp","Saved without details",14]]],
+["North York & Uptown Yonge","Yonge from Sheppard to Steeles",[
+["Kiishi Izakaya","jp","5437 Yonge St – yakitori, late night",32],
+["Anji Izakaya","bar","Yonge strip – snow-topped beer",10],
+["Piinong Thai","other","3321 Yonge St – vegetarian-friendly",22],
+["Han Tai Wan","cn","HK café & gastropub with Thai twists",4],
+["Gwangjang Market","kor","Korean market-style comfort food",63],
+["Korean bistro (actress visited)","kor","1900s-Korea house decor",50],
+["Ehwa Uptown","kor","Honeycomb makgeolli, upscale fusion",94],
+["Bao House","cn","5336 Yonge St – dumplings, all ~$9",83],
+["H Mart self-serve ramen","act","Yonge & Sheppard, 2nd floor – $5",105],
+["Mikaku Udon Bar","jp","Creamy, bouncy udon",65],
+["Sanuki udon spot","jp","Wagyu udon, blow-torched",98],
+["Bellis","other","Japanese-Italian",46]]],
+["Scarborough","",[
+["Loon Fong Chicken Pot","hot","HK chicken hotpot, 2nd location",41],
+["Chengdu Spicy Hotpot","hot","3250 Midland Ave – $30 AYCE, cash only",77],
+["Happy Valley Village","cn","3700 Midland Ave – Northeastern iron-pot stew",84],
+["Jiangnan Dim Sum","cn","633 Silver Star Blvd – handmade XLB",109],
+["Dear Saigon","viet","New Vietnamese spot",110],
+["Asia Food Mart","act","2150 McNicoll Ave – Asian snacks",108],
+["JJ Biryani Hut & food court spots","other","2580 Shepard Ave – halal, cheap eats",101]]],
+["Markham & Richmond Hill","",[
+["Kiku Sushi","hot","Markham – AYCE sushi",7],
+["Markham's largest hot pot buffet","hot","Downtown Markham, 200+ items",60],
+["Gourmet Tribe Hot Pot","hot","AYCE hot pot + sushi, lobster promo",73],
+["Hutaoli","cn","Sichuan with live music",82],
+["Little Ring Cafe","cn","7828 Kennedy Rd – HK café",76],
+["FMP Chinese BBQ","cn","First Markham Place",72],
+["Bento 886","cn","Taiwanese bentos",62],
+["Banh mi shop (2nd location)","viet","Near Markham Stouffville Hospital",59],
+["Phin La Cafe","cafe","Cream-top Vietnamese coffee",61],
+["Unionville yakitori bar","jp","Main St Unionville",97],
+["Ryu Izakaya","bar","115 York Blvd, RH – $1 oysters Tue/Wed",23],
+["Loon Fong Hotpot","hot","RH – 1980s HK movie vibe",54],
+["Pho Le","viet","Michelin-guide pho from Vietnam",89],
+["Pho Hung Phat","viet","Hot stone bun bo hue",115],
+["$30 omakase-style AYCE sushi","hot","205 Don Head Village Blvd, RH",92],
+["The Big Casserole","cn","Richmond Hill",91],
+["Dragon BBQ Bar","bar","Late-night skewers",74],
+["Forever Young","act","Arcade, VR, golf sims, karaoke",40]]],
+["Mississauga, Brampton & west GTA","",[
+["Premium Banh (Mississauga)","viet","Ask about banh it ram",42],
+["New Vietnamese spot in Mississauga","viet","Open 9am–11pm",47],
+["Brown Donkatsu","jp","4559 Hurontario St – huge katsu",56],
+["Little Hot Crab","other","Best chilli crab in the GTA",55],
+["August 8 Brazilian BBQ AYCE","hot","Brampton & Eglinton",58],
+["KC's Boil","other","168 Kennedy Rd S, Brampton – seafood boil",57],
+["Texas BBQ in Newmarket","other","Viral smokehouse",37]]],
+["Day trips & outdoors","",[
+["Rattray Marsh","out","Mississauga lakeshore boardwalk, 30 min",116],
+["Smokey Hollow Falls","out","Waterdown – fall colours",104],
+["Elora Gorge","out","Rafting and hikes",112],
+["Niagara fall hikes","out","Free entry, great colours",81],
+["WildPlay Niagara Falls","out","Ziplines & ropes",114],
+["Grail Springs","out","Wellness retreat",68],
+["Free 2.5 km scenic loop","out","1.5h from Toronto",78]]],
+["Area not stated in the post","Spots saved without a neighbourhood in the caption",[
+["Northern Vietnamese restaurant","viet","Called the best Northern Viet in Toronto",9],
+["Elevated Vietnamese (spring menu)","viet","Traditional + modern dishes",27],
+["&Banh Mi","viet","Bread baked from scratch daily",44],
+["Beleaf","viet","Huge portions, share platter",88],
+["Electric Piggy","viet","Vietnamese x Southern BBQ",80],
+["Kyoto Katsugyu","jp","Medium-rare gyukatsu, free refills",34],
+["Yakitori Kyushu","jp","Horse sashimi, if you dare",93],
+["Pears Restaurant","cn","The $40 congee",53],
+["Seafood Princess","cn","$6.95 dim sum deal",64],
+["Qin's Garden","cn","Largest XLB in Toronto",99],
+["LC Cafe","cn","Modern HK café",102],
+["Ho Jami Sua","cn","Taiwanese mi-sua, popcorn chicken",79],
+["New Sun BBQ","cn","$5 Chinese BBQ",106],
+["Soi Snacks","cn","Dual-flavour pizza",96],
+["Shu Da Xia Hotpot","hot","Hanfu dining events",95],
+["Jiyu Thai Hot Pot","hot","Thai broths & seafood",120],
+["Nene Chicken","kor","Korean fried chicken combos",70]]]
+];
+const L=['/insta.noodls/reel/DcHYrzvpF8B/', '/triet.ngnguyen/reel/DbixyM6xkGx/', '/rosie_thefoodie/reel/Ddee9k9Rpm5/', '/pieceofclara/reel/DdShWc2PEtG/', '/fu2zy_peach/reel/DdWmnbzN4CC/', '/dishedtoronto/reel/DdH95aMhAbM/', '/jess_fooddiary/reel/DbI1M3vxekv/', '/tigereatsfood/reel/Dbb3VqaKKyq/', '/triet.ngnguyen/reel/DbR_VD6NKZi/', '/tiff.eatz/reel/DbOFp43uKIh/', '/jess_fooddiary/reel/DY7Zk8yxtkT/', '/jen.trt/reel/DbJo08SJNG5/', '/toronto.culture/p/Da39U5HE_36/', '/jonijawne/reel/DaQYC7OxM3S/', '/arcadiaearth/reel/DagNQgGMMPD/', '/justtony.backup/reel/DZ3lDUkMYaQ/', '/consumedbyarnie/reel/DZIMqfBOV-X/', '/juni.parc/reel/DWNXx2cEQZf/', '/stephaniexeats/reel/DZTPjdeBv2J/', '/dohyunkimdave/reel/DWY7XLXEjV1/', '/traveleat.drink/reel/DXIqpo4CBqR/', '/seed.eat.repeat/reel/DZqUDhPtgxD/', '/hangrydenise/reel/Dafonkwi2am/', '/rosie_thefoodie/reel/DaeWCADsZeP/', '/mochi.trt6/reel/Dadi-L9B51P/', '/bloomberry.to/reel/DaDd02ERQLo/', '/triet.ngnguyen/reel/DX27Gp8NV4q/', '/jen.trt/reel/DaTGK17xxsf/', '/juni.parc/reel/DXxzMeSRg4y/', '/amyeatsdrinks/reel/DYGFiAoAckr/', '/juni.parc/reel/DWzzimOCbdh/', '/mukbo.eats/reel/DZyW4i1RvEF/', '/fu2zy_peach/reel/DaEI39OP1Cj/', '/cherstravels/reel/DWeazhZkRn2/', '/riho36_/reel/DX1r7jFhLOA/', '/jen.trt/reel/DZANk0GRUeU/', '/marcelloeats/reel/DZdrNHVtmjE/', '/eatsbyjoo/reel/DY8nYcOthm5/', '/metroeatsofficial/reel/DXUIsNRDeG_/', '/trista.foodie/reel/DZ5tVYMMJfi/', '/justtony.backup/reel/DZ3s0tKsTPk/', '/lawlam.eats/reel/DZhvrNDA3uR/', '/premiumbanh/reel/DWz4eZ6DHPy/', '/mochi.trt6/reel/DZITXWrxmRm/', '/andbanhmi/reel/DYnxxycx4L0/', '/xo_jennsjourney/reel/DXwU8TqAKUc/', '/mochi.trt6/reel/DZK-dP3RaQ_/', '/tasteofmississauga/reel/DZTWuqLRthI/', '/metroeatsofficial/reel/DZBZSpZtnRi/', '/toronto.sisters/reel/DY7sSPtP5xX/', '/jen.trt/reel/DXw3-GIxlbS/', '/jen.trt/reel/DY7w1M0yutN/', '/mukbo.eats/reel/DY8Ont5RbaQ/', '/tinahuanghuang/reel/DWXa42iCURv/', '/fu2zy_peach/reel/DY-jux2v3sB/', '/just.tonyh/reel/DWobS-8DbRM/', '/mukbangtoronto/reel/DWeJRhDD281/', '/hangrydenise/reel/DVJcko-jRZX/', '/1500_calories_plus/reel/DSnq9pgkQeP/', '/thismamadontcook/reel/DSlm5aIDTER/', '/thismamadontcook/reel/DRLVjEQCbnF/', '/eatsbyjoo/reel/DSDZU1fkZ-s/', '/eats_in_markham/reel/DR2WCyLltzm/', '/eatsbyjoo/reel/DRTeb3_jQQ-/', '/chsmrtnz/reel/DPkVuDekdpX/', '/nancy.notes/reel/DPBxv5mkbbe/', '/certifiedluckygal/reel/DNbraomyogJ/', '/holoholoduo/reel/DOV7On1Dj-W/', '/iamicess/reel/DNTv-wJy1e_/', '/kate.ontario/reel/DMD9SrlyXZk/', '/kknomzz/reel/DKk0WSIPKlI/', '/ms.pink.mochi/reel/DMWZU4JM9cJ/', '/thismamadontcook/reel/DMJqLLXtSwX/', '/jackieeeats.to/reel/DLuygZUx1VJ/', '/guoingcrazy4food/reel/DLTgeREtQrZ/', '/nomz_with_fee/reel/DLDNpVQvBO0/', '/micheatsmuch/reel/DKvHrdMPAsM/', '/nomz_with_fee/reel/DKiFL-yvjmh/', '/foodtraveleisure/reel/DJpCEwXxFzC/', '/bwit.bunz/reel/DEtUb9Us0fL/', '/ms.pink.mochi/reel/DAPZvNRuOm1/', '/foodtraveleisure/reel/DBZNu3LvAb-/', '/gosnappy.io/reel/DBJxfymP_vE/', '/nomegranate/reel/C4ONeT4rd2O/', '/nomegranate/reel/C4yMxPqxq1J/', '/ttceats/reel/C4G3Udwu73s/', '/mikey.eatsto/reel/C3xYJi6OxSa/', '/insta.noodls/reel/C3jdplWMTDi/', '/belllelicious/reel/C3lc1drP6XF/', '/rosie_thefoodie/reel/C3iWBwELnOD/', '/insta.noodls/reel/C23Oeq7v6ny/', '/markhamfoodie/reel/C15v9gzLKTV/', '/hangrydenise/reel/C06qCAurYfn/', '/fred.bk/reel/C0vFzoGr_Z4/', '/rosie_thefoodie/reel/C0pjA6-PP5m/', '/andrea.charmaine/reel/C0xzhsOOTsc/', '/andrea.charmaine/reel/C0TGFE7OkfY/', '/cfooodie/reel/C0X3nLKMVCF/', '/belllelicious/reel/C0JqBkFMcJQ/', '/twobitefoodies/reel/Cz4k-aYPs5G/', '/mukbangtoronto/reel/Cz1P1J2Lqw8/', '/seed.eat.repeat/reel/CzSK-8frygj/', '/consumedbyarnie/reel/CzBx5YFLY5T/', '/chopstixinthesix/reel/CzD_oJYuCyY/', '/explore.ontario/reel/Cy-0Uj4uZL_/', '/shriya.agni/reel/CyBbiBXL7D5/', '/cheatdayto/reel/CvyUM5zARCO/', '/insta.noodls/reel/CxwMybXvzh3/', '/sincerely.sammy/reel/CxdWc6HLs_Y/', '/hangrydenise/reel/Cw8diQuJkXA/', '/cfooodie/reel/CxjhYYluvwL/', '/torontofood/reel/CxYSALCrmiN/', '/inshortscanada/reel/CwnOA6KL_ix/', '/linda.explore/reel/CxZLwRKp7Cw/', '/tryit.toronto/reel/Cwyx3gVrRji/', '/cfooodie/reel/CxUDxZeubRX/', '/ontariotravelideas/reel/CuQBW4rMi5S/', '/jess_fooddiary/reel/CwDR6HPpgTO/', '/mukbangtoronto/reel/CwgVDqXBXQG/', '/jordshore/reel/CwX9jvvgpIZ/', '/torontofood/reel/CwgeSJAozBA/', '/_the_p_perspective/reel/CwkZZGIOkFI/', '/mukbangtoronto/reel/CwXs3eZB1m_/'];
+let f=null;const chips=document.getElementById('chips'),out=document.getElementById('out');
+function render(){chips.innerHTML='';[["All",null],...Object.entries(C).map(([k,v])=>[v,k])].forEach(([l,k])=>{const b=document.createElement('button');b.textContent=l;b.setAttribute('aria-pressed',f===k);b.onclick=()=>{f=k;render()};chips.append(b)});
+out.innerHTML=A.map(([n,note,items])=>{const it=items.filter(i=>!f||i[1]===f);if(!it.length)return'';return`<section><h2>${n}<span>${it.length}</span></h2>${note?`<p class="area-note">${note}</p>`:''}<ul>${it.map(i=>`<li><span class="tag">${C[i[1]]}</span><b>${i[0]}</b><span class="d">${i[2]}</span>${i[3]?`<a href="https://www.instagram.com${L[i[3]-1]}" target="_blank" rel="noopener">Watch reel ↗</a>`:''}</li>`).join('')}</ul></section>`}).join('')}
+render();
+</script>
+
+
+</body></html>
